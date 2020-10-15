@@ -15,8 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }; 
   
 
-
-  function deleteAll() {
+  const DeleteAll = function () {
     const listItem = document.getElementById('li');
     toReadList.removeChild(listItem);
-   }
+   };
