@@ -3,19 +3,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const form = document.querySelector('#new-item-form');
   form.addEventListener("submit", handleSubmit);
-});
+  const deleteAllButton = document.querySelector('#delete-all');
+  deleteAllButton.addEventListener('click', handleDeleteAllClick);
+})
 
-  const handleSubmit = function(event) {
-    event.preventDefault()
-    const toReadList = document.querySelector("#reading-list")
-    const listItem = document.createElement('li');
-    listItem.textContent = `${event.target.title.value} ${event.target.author.value} ${event.target.category.value}`
-    toReadList.appendChild(listItem)
-    document.getElementById("new-item-form").reset();
-  }; 
-  
+const handleNewItemFormSubmit = function (event) {
+  event.preventDefault();
 
-  const DeleteAll = function () {
-    const listItem = document.getElementById('li');
-    toReadList.removeChild(listItem);
-   };
+  const readingListItem = createReadingListItem(event.target);
+  const readingList = document.querySelector('#reading-list');
+  readingList.appendChild(readingListItem);
+
+  event.target.reset();
+}
+
+const createReadingListItem = function (form) {
+  const readingListItem = document.createElement('li');
+  readingListItem.classList.add('reading-list-item');
+
+  const title = document.createElement('h2');
+  title.textContent = form.title.value;
+  readingListItem.appendChild(title);
+
+  const author = document.createElement('h3');
+  author.textContent = form.author.value;
+  readingListItem.appendChild(author);
+
+  const category = document.createElement('p');
+  category.textContent = form.category.value;
+  readingListItem.appendChild(category);
+
+  return readingListItem;
+}
+
+const handleDeleteAllClick = function (event) {
+  const readingList = document.querySelector('#reading-list');
+  readingList.innerHTML = '';
+};
